@@ -1,0 +1,22 @@
+[package]
+name = "storage"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+# Deterministic fault injection for crash/recovery tests. Compiled out of
+# normal builds entirely: with the feature off, every hook below is an
+# `#[inline(always)]` no-op.
+fault-injection = []
+
+[dependencies]
+raft-core = { path = "../raft-core" }
+
+[dev-dependencies]
+tempfile = "=3.8.1"
+# Enable the fault-injection hooks for this crate's own integration tests.
+storage = { path = ".", features = ["fault-injection"] }
+
+[[bench]]
+name = "group_commit"
+harness = false
