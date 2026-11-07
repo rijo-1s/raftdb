@@ -1,0 +1,16 @@
+[package]
+name = "raftdb-fuzz"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Property tests and seeded random-byte fuzz loops for every RaftDB on-disk and wire decoder"
+
+[dependencies]
+storage = { path = "../crates/storage" }
+raft-core = { path = "../crates/raft-core" }
+kv = { path = "../crates/kv" }
+raftdb-proto = { path = "../crates/raftdb-proto" }
+prost = "0.12"
+proptest = "=1.4.0"
+rand = "0.8"
+tempfile = "=3.8.1"
