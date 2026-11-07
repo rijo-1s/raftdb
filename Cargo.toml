@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/raft-core",
+    "crates/storage",
+    "crates/kv",
+    "crates/raftdb-proto",
+    "crates/raftdb",
+    "bench",
+    "fuzz",
+    "crates/raftdb-log",
+]
