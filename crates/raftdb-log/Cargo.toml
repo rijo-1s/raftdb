@@ -1,0 +1,13 @@
+[package]
+name = "raftdb-log"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Structured (JSON) logging, stable operational event names and a panic hook for RaftDB"
+
+[dependencies]
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", default-features = false, features = ["std", "fmt", "json", "env-filter", "registry", "smallvec", "tracing-log"] }
+
+[dev-dependencies]
+serde_json = "1"
