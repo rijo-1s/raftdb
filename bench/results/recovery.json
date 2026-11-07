@@ -1,0 +1,381 @@
+{
+  "meta": {
+    "suite": "recovery",
+    "timestamp_unix": 1793975538,
+    "command": "target/release/harness all",
+    "env": {
+    },
+    "git": {
+      "commit": "",
+      "dirty": false
+    },
+    "machine": {
+      "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+      "cpus": 16,
+      "mem_total": "3848392 kB",
+      "kernel": "6.6.87.2-microsoft-standard-WSL2",
+      "os": "Linux x86_64"
+    },
+    "disk": {
+      "durable_dir": {
+        "path": "/tmp",
+        "device": "/dev/sdd",
+        "filesystem": "ext4",
+        "rotational": "1",
+        "model": "Virtual Disk"
+      },
+      "cpu_dir": {
+        "path": "/dev/shm",
+        "device": "none",
+        "filesystem": "tmpfs",
+        "rotational": "unknown",
+        "model": ""
+      }
+    },
+    "toolchain": {
+      "rustc": "rustc 1.91.1 (ed61e7d7e 2025-11-07) (built from a source tarball)",
+      "profile": "release"
+    },
+    "protocol": {
+      "warmup_runs": 1,
+      "measured_runs": 5,
+      "quick_mode": false,
+      "spread_definition": "(max-min)/median in percent over measured runs",
+      "page_cache": "warm"
+    }
+  },
+  "all_ok": true,
+  "benchmarks": [
+    {
+      "name": "recovery/lsm_open_n10000_verifyOn",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 10000,
+        "raw_payload_bytes": 1100000,
+        "verify_on_open": true,
+        "state": "flushed+compacted SSTables"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [5.212077, 4.011376, 5.281124, 4.804356, 4.877251],
+        "median": 4.877251,
+        "min": 4.011376,
+        "max": 5.281124,
+        "spread_pct": 26.034092
+      },
+      "disk_bytes": {
+        "runs": [1242712, 1242712, 1242712, 1242712, 1242712],
+        "median": 1242712,
+        "min": 1242712,
+        "max": 1242712,
+        "spread_pct": 0
+      },
+      "verified_per_run": [10000, 10000, 10000, 10000, 10000]
+    },
+    {
+      "name": "recovery/lsm_open_n10000_verifyOff",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 10000,
+        "raw_payload_bytes": 1100000,
+        "verify_on_open": false,
+        "state": "flushed+compacted SSTables"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [0.453183, 0.428773, 0.322548, 0.291082, 0.329979],
+        "median": 0.329979,
+        "min": 0.291082,
+        "max": 0.453183,
+        "spread_pct": 49.124641
+      },
+      "disk_bytes": {
+        "runs": [1242712, 1242712, 1242712, 1242712, 1242712],
+        "median": 1242712,
+        "min": 1242712,
+        "max": 1242712,
+        "spread_pct": 0
+      },
+      "verified_per_run": [10000, 10000, 10000, 10000, 10000]
+    },
+    {
+      "name": "recovery/lsm_open_n50000_verifyOn",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 50000,
+        "raw_payload_bytes": 5500000,
+        "verify_on_open": true,
+        "state": "flushed+compacted SSTables"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [22.762173, 19.244831, 26.222893, 23.622465, 18.988650],
+        "median": 22.762173,
+        "min": 18.988650,
+        "max": 26.222893,
+        "spread_pct": 31.781865
+      },
+      "disk_bytes": {
+        "runs": [6212852, 6212852, 6212852, 6212852, 6212852],
+        "median": 6212852,
+        "min": 6212852,
+        "max": 6212852,
+        "spread_pct": 0
+      },
+      "verified_per_run": [50000, 50000, 50000, 50000, 50000]
+    },
+    {
+      "name": "recovery/lsm_open_n50000_verifyOff",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 50000,
+        "raw_payload_bytes": 5500000,
+        "verify_on_open": false,
+        "state": "flushed+compacted SSTables"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [0.762417, 0.639646, 0.683656, 0.676007, 1.309917],
+        "median": 0.683656,
+        "min": 0.639646,
+        "max": 1.309917,
+        "spread_pct": 98.042144
+      },
+      "disk_bytes": {
+        "runs": [6212852, 6212852, 6212852, 6212852, 6212852],
+        "median": 6212852,
+        "min": 6212852,
+        "max": 6212852,
+        "spread_pct": 0
+      },
+      "verified_per_run": [50000, 50000, 50000, 50000, 50000]
+    },
+    {
+      "name": "recovery/lsm_open_n200000_verifyOn",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 200000,
+        "raw_payload_bytes": 22000000,
+        "verify_on_open": true,
+        "state": "flushed+compacted SSTables"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [86.681521, 87.983441, 88.265014, 90.631115, 102.162215],
+        "median": 88.265014,
+        "min": 86.681521,
+        "max": 102.162215,
+        "spread_pct": 17.538879
+      },
+      "disk_bytes": {
+        "runs": [24825537, 24825537, 24825537, 24825537, 24825537],
+        "median": 24825537,
+        "min": 24825537,
+        "max": 24825537,
+        "spread_pct": 0
+      },
+      "verified_per_run": [200000, 200000, 200000, 200000, 200000]
+    },
+    {
+      "name": "recovery/lsm_open_n200000_verifyOff",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 200000,
+        "raw_payload_bytes": 22000000,
+        "verify_on_open": false,
+        "state": "flushed+compacted SSTables"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [22.558370, 22.505597, 21.765091, 21.845387, 21.825072],
+        "median": 21.845387,
+        "min": 21.765091,
+        "max": 22.558370,
+        "spread_pct": 3.631334
+      },
+      "disk_bytes": {
+        "runs": [24825537, 24825537, 24825537, 24825537, 24825537],
+        "median": 24825537,
+        "min": 24825537,
+        "max": 24825537,
+        "spread_pct": 0
+      },
+      "verified_per_run": [200000, 200000, 200000, 200000, 200000]
+    },
+    {
+      "name": "recovery/lsm_wal_replay_n10000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 10000,
+        "state": "unflushed memtable, WAL replay"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [7.019687, 6.905141, 6.820442, 6.841365, 7.846428],
+        "median": 6.905141,
+        "min": 6.820442,
+        "max": 7.846428,
+        "spread_pct": 14.858292
+      },
+      "disk_bytes": {
+        "runs": [1233200, 1233200, 1233200, 1233200, 1233200],
+        "median": 1233200,
+        "min": 1233200,
+        "max": 1233200,
+        "spread_pct": 0
+      },
+      "verified_per_run": [10000, 10000, 10000, 10000, 10000]
+    },
+    {
+      "name": "recovery/lsm_wal_replay_n50000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "keys": 50000,
+        "state": "unflushed memtable, WAL replay"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [35.621680, 39.554816, 35.661384, 37.097053, 35.400596],
+        "median": 35.661384,
+        "min": 35.400596,
+        "max": 39.554816,
+        "spread_pct": 11.649071
+      },
+      "disk_bytes": {
+        "runs": [6165700, 6165700, 6165700, 6165700, 6165700],
+        "median": 6165700,
+        "min": 6165700,
+        "max": 6165700,
+        "spread_pct": 0
+      },
+      "verified_per_run": [50000, 50000, 50000, 50000, 50000]
+    },
+    {
+      "name": "recovery/wal_reopen_n1000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "entries": 1000,
+        "payload_bytes": 100
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [1.701206, 1.665738, 2.081251, 1.090770, 0.852087],
+        "median": 1.665738,
+        "min": 0.852087,
+        "max": 2.081251,
+        "spread_pct": 73.790956
+      },
+      "disk_bytes": {
+        "runs": [137034, 137034, 137034, 137034, 137034],
+        "median": 137034,
+        "min": 137034,
+        "max": 137034,
+        "spread_pct": 0
+      },
+      "verified_per_run": [1000, 1000, 1000, 1000, 1000]
+    },
+    {
+      "name": "recovery/wal_reopen_n10000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "entries": 10000,
+        "payload_bytes": 100
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [4.251228, 4.268936, 5.214652, 4.376490, 4.016445],
+        "median": 4.268936,
+        "min": 4.016445,
+        "max": 5.214652,
+        "spread_pct": 28.068048
+      },
+      "disk_bytes": {
+        "runs": [1370034, 1370034, 1370034, 1370034, 1370034],
+        "median": 1370034,
+        "min": 1370034,
+        "max": 1370034,
+        "spread_pct": 0
+      },
+      "verified_per_run": [10000, 10000, 10000, 10000, 10000]
+    },
+    {
+      "name": "recovery/wal_reopen_n50000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "entries": 50000,
+        "payload_bytes": 100
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [25.046704, 18.700086, 19.582716, 19.351659, 19.222991],
+        "median": 19.351659,
+        "min": 18.700086,
+        "max": 25.046704,
+        "spread_pct": 32.796248
+      },
+      "disk_bytes": {
+        "runs": [6850034, 6850034, 6850034, 6850034, 6850034],
+        "median": 6850034,
+        "min": 6850034,
+        "max": 6850034,
+        "spread_pct": 0
+      },
+      "verified_per_run": [50000, 50000, 50000, 50000, 50000]
+    }
+  ]
+}

@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "suite": "engine_durable",
+    "timestamp_unix": 1793975527,
+    "command": "target/release/harness all",
+    "env": {
+    },
+    "git": {
+      "commit": "",
+      "dirty": false
+    },
+    "machine": {
+      "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+      "cpus": 16,
+      "mem_total": "3848392 kB",
+      "kernel": "6.6.87.2-microsoft-standard-WSL2",
+      "os": "Linux x86_64"
+    },
+    "disk": {
+      "durable_dir": {
+        "path": "/tmp",
+        "device": "/dev/sdd",
+        "filesystem": "ext4",
+        "rotational": "1",
+        "model": "Virtual Disk"
+      },
+      "cpu_dir": {
+        "path": "/dev/shm",
+        "device": "none",
+        "filesystem": "tmpfs",
+        "rotational": "unknown",
+        "model": ""
+      }
+    },
+    "toolchain": {
+      "rustc": "rustc 1.91.1 (ed61e7d7e 2025-11-07) (built from a source tarball)",
+      "profile": "release"
+    },
+    "protocol": {
+      "warmup_runs": 1,
+      "measured_runs": 5,
+      "quick_mode": false,
+      "spread_definition": "(max-min)/median in percent over measured runs",
+      "page_cache": "warm"
+    }
+  },
+  "all_ok": true,
+  "benchmarks": [
+    {
+      "name": "durable/raw_fsync_4k",
+      "mode": "durable",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "writes": 500,
+        "bytes": 4096
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [250.137359, 248.720677, 272.193600, 226.004680, 291.745655],
+        "median": 250.137359,
+        "min": 226.004680,
+        "max": 291.745655,
+        "spread_pct": 26.281950
+      },
+      "latency_p50_ms": {
+        "runs": [4.121282, 4.077139, 3.999729, 4.609211, 2.903993],
+        "median": 4.077139,
+        "min": 2.903993,
+        "max": 4.609211,
+        "spread_pct": 41.823887
+      },
+      "latency_p99_ms": {
+        "runs": [6.291991, 6.938400, 5.922465, 6.162203, 5.881628],
+        "median": 6.162203,
+        "min": 5.881628,
+        "max": 6.938400,
+        "spread_pct": 17.149257
+      },
+      "disk_bytes": {
+        "runs": [2048000, 2048000, 2048000, 2048000, 2048000],
+        "median": 2048000,
+        "min": 2048000,
+        "max": 2048000,
+        "spread_pct": 0
+      },
+      "verified_per_run": [500, 500, 500, 500, 500]
+    },
+    {
+      "name": "durable/wal_append_b1",
+      "mode": "durable",
+      "unit": "entries_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "entries": 1000,
+        "batch": 1,
+        "payload_bytes": 100
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [264.847927, 263.808921, 245.481079, 204.033714, 207.340580],
+        "median": 245.481079,
+        "min": 204.033714,
+        "max": 264.847927,
+        "spread_pct": 24.773483
+      },
+      "latency_p50_ms": {
+        "runs": [3.903722, 3.995161, 4.294068, 4.759742, 4.609785],
+        "median": 4.294068,
+        "min": 3.903722,
+        "max": 4.759742,
+        "spread_pct": 19.934943
+      },
+      "latency_p99_ms": {
+        "runs": [6.046983, 5.824557, 5.860710, 9.147072, 10.456187],
+        "median": 6.046983,
+        "min": 5.824557,
+        "max": 10.456187,
+        "spread_pct": 76.594064
+      },
+      "disk_bytes": {
+        "runs": [137034, 137034, 137034, 137034, 137034],
+        "median": 137034,
+        "min": 137034,
+        "max": 137034,
+        "spread_pct": 0
+      },
+      "verified_per_run": [1000, 1000, 1000, 1000, 1000]
+    },
+    {
+      "name": "durable/wal_append_b16",
+      "mode": "durable",
+      "unit": "entries_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "entries": 4000,
+        "batch": 16,
+        "payload_bytes": 100
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [3354.463023, 5277.606029, 3991.466245, 3605.483236, 3450.180234],
+        "median": 3605.483236,
+        "min": 3354.463023,
+        "max": 5277.606029,
+        "spread_pct": 53.339397
+      },
+      "latency_p50_ms": {
+        "runs": [4.664092, 2.207194, 4.003011, 4.651676, 4.782639],
+        "median": 4.651676,
+        "min": 2.207194,
+        "max": 4.782639,
+        "spread_pct": 55.365958
+      },
+      "latency_p99_ms": {
+        "runs": [17.430309, 17.343994, 6.399234, 5.814728, 6.121970],
+        "median": 6.399234,
+        "min": 5.814728,
+        "max": 17.430309,
+        "spread_pct": 181.515178
+      },
+      "disk_bytes": {
+        "runs": [548034, 548034, 548034, 548034, 548034],
+        "median": 548034,
+        "min": 548034,
+        "max": 548034,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000]
+    },
+    {
+      "name": "durable/wal_append_b256",
+      "mode": "durable",
+      "unit": "entries_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "entries": 4000,
+        "batch": 256,
+        "payload_bytes": 100
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [47864.237876, 46877.131078, 48145.154367, 51435.995921, 46710.340212],
+        "median": 47864.237876,
+        "min": 46710.340212,
+        "max": 51435.995921,
+        "spread_pct": 9.873041
+      },
+      "latency_p50_ms": {
+        "runs": [5.102676, 5.122591, 4.960709, 4.504439, 5.138446],
+        "median": 5.102676,
+        "min": 4.504439,
+        "max": 5.138446,
+        "spread_pct": 12.424990
+      },
+      "latency_p99_ms": {
+        "runs": [5.970926, 5.725029, 5.772461, 6.291470, 5.755725],
+        "median": 5.772461,
+        "min": 5.725029,
+        "max": 6.291470,
+        "spread_pct": 9.812816
+      },
+      "disk_bytes": {
+        "runs": [548034, 548034, 548034, 548034, 548034],
+        "median": 548034,
+        "min": 548034,
+        "max": 548034,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000]
+    },
+    {
+      "name": "durable/lsm_sync_apply_b1",
+      "mode": "durable",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "keys": 1000,
+        "batch": 1,
+        "engine": "LsmStore sync_wal=true"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [210.017683, 219.806563, 207.237674, 204.764290, 192.890917],
+        "median": 207.237674,
+        "min": 192.890917,
+        "max": 219.806563,
+        "spread_pct": 12.987815
+      },
+      "latency_p50_ms": {
+        "runs": [4.835494, 4.774664, 4.891375, 4.889528, 5.162870],
+        "median": 4.889528,
+        "min": 4.774664,
+        "max": 5.162870,
+        "spread_pct": 7.939539
+      },
+      "latency_p99_ms": {
+        "runs": [6.606566, 6.557039, 6.887360, 6.618315, 8.177085],
+        "median": 6.618315,
+        "min": 6.557039,
+        "max": 8.177085,
+        "spread_pct": 24.478224
+      },
+      "disk_bytes": {
+        "runs": [143060, 143060, 143060, 143060, 143060],
+        "median": 143060,
+        "min": 143060,
+        "max": 143060,
+        "spread_pct": 0
+      },
+      "verified_per_run": [1000, 1000, 1000, 1000, 1000]
+    },
+    {
+      "name": "durable/lsm_sync_apply_b64",
+      "mode": "durable",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "keys": 20000,
+        "batch": 64,
+        "engine": "LsmStore sync_wal=true"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [11066.212052, 11478.359245, 11358.852731, 11387.112766, 11415.301649],
+        "median": 11387.112766,
+        "min": 11066.212052,
+        "max": 11478.359245,
+        "spread_pct": 3.619418
+      },
+      "latency_p50_ms": {
+        "runs": [5.639114, 5.392209, 5.346346, 5.410818, 5.332895],
+        "median": 5.392209,
+        "min": 5.332895,
+        "max": 5.639114,
+        "spread_pct": 5.678916
+      },
+      "latency_p99_ms": {
+        "runs": [8.362488, 12.320924, 14.410784, 8.597572, 7.818994],
+        "median": 8.597572,
+        "min": 7.818994,
+        "max": 14.410784,
+        "spread_pct": 76.670367
+      },
+      "disk_bytes": {
+        "runs": [2466320, 2466320, 2466320, 2466320, 2466320],
+        "median": 2466320,
+        "min": 2466320,
+        "max": 2466320,
+        "spread_pct": 0
+      },
+      "verified_per_run": [20000, 20000, 20000, 20000, 20000]
+    },
+    {
+      "name": "durable/raft_single_node_wal_lsmsync",
+      "mode": "durable",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "writes": 500,
+        "log": "WalLog fsync",
+        "engine": "LsmStore sync_wal=true"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [99.826272, 97.107933, 101.382481, 95.547712, 96.748782],
+        "median": 97.107933,
+        "min": 95.547712,
+        "max": 101.382481,
+        "spread_pct": 6.008540
+      },
+      "latency_p50_ms": {
+        "runs": [10.184214, 10.242847, 10.243288, 10.510341, 10.192739],
+        "median": 10.242847,
+        "min": 10.184214,
+        "max": 10.510341,
+        "spread_pct": 3.183949
+      },
+      "latency_p99_ms": {
+        "runs": [17.728433, 17.830541, 14.023726, 14.976438, 16.559577],
+        "median": 16.559577,
+        "min": 14.023726,
+        "max": 17.830541,
+        "spread_pct": 22.988600
+      },
+      "disk_bytes": {
+        "runs": [151631, 151631, 151631, 151631, 151631],
+        "median": 151631,
+        "min": 151631,
+        "max": 151631,
+        "spread_pct": 0
+      },
+      "verified_per_run": [500, 500, 500, 500, 500]
+    }
+  ]
+}

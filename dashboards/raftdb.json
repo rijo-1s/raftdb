@@ -1,0 +1,58 @@
+{
+  "title": "raftdb cluster",
+  "description": "Import into Grafana with a Prometheus data source scraping each node's --metrics-addr (one scrape target per node, labeled by the 'node' label raftdb attaches to every metric).",
+  "schemaVersion": 39,
+  "panels": [
+    {
+      "title": "Current leader (raft_is_leader == 1)",
+      "type": "stat",
+      "targets": [{ "expr": "raft_is_leader" }],
+      "gridPos": { "h": 4, "w": 24, "x": 0, "y": 0 }
+    },
+    {
+      "title": "Leader changes over time",
+      "type": "timeseries",
+      "targets": [{ "expr": "rate(raft_leader_changes_total[5m])" }],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 }
+    },
+    {
+      "title": "Current term per node",
+      "type": "timeseries",
+      "targets": [{ "expr": "raft_current_term" }],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 }
+    },
+    {
+      "title": "Commit index vs. log length per node",
+      "description": "A large, persistent gap between these two for one node indicates it's lagging (e.g. slow, partitioned, or recovering).",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "raft_commit_index", "legendFormat": "commit_index {{node}}" },
+        { "expr": "raft_log_last_index", "legendFormat": "log_last_index {{node}}" }
+      ],
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 12 }
+    },
+    {
+      "title": "PUT / GET / DELETE throughput",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "rate(kv_puts_total[1m])", "legendFormat": "PUT {{node}}" },
+        { "expr": "rate(kv_gets_total[1m])", "legendFormat": "GET {{node}}" },
+        { "expr": "rate(kv_deletes_total[1m])", "legendFormat": "DELETE {{node}}" }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 }
+    },
+    {
+      "title": "Writes rejected (not leader)",
+      "description": "Non-zero here is expected on followers being asked directly rather than redirected — high sustained rates on the real leader would be unusual.",
+      "type": "timeseries",
+      "targets": [{ "expr": "rate(kv_writes_rejected_not_leader_total[1m])" }],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 20 }
+    },
+    {
+      "title": "Linearizable reads confirmed",
+      "type": "timeseries",
+      "targets": [{ "expr": "rate(raft_reads_confirmed_total[1m])" }],
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 28 }
+    }
+  ]
+}
