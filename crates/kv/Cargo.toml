@@ -1,0 +1,16 @@
+[package]
+name = "kv"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+raft-core = { path = "../raft-core" }
+storage = { path = "../storage" }
+
+[dev-dependencies]
+storage = { path = "../storage", features = ["fault-injection"] }
+tempfile = "=3.8.1"
+
+[[bench]]
+name = "engine_bench"
+harness = false

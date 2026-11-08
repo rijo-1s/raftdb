@@ -1,0 +1,740 @@
+{
+  "meta": {
+    "suite": "cluster",
+    "timestamp_unix": 1793976552,
+    "command": "target/release/harness all",
+    "env": {
+    },
+    "git": {
+      "commit": "",
+      "dirty": false
+    },
+    "machine": {
+      "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+      "cpus": 16,
+      "mem_total": "3848392 kB",
+      "kernel": "6.6.87.2-microsoft-standard-WSL2",
+      "os": "Linux x86_64"
+    },
+    "disk": {
+      "durable_dir": {
+        "path": "/tmp",
+        "device": "/dev/sdd",
+        "filesystem": "ext4",
+        "rotational": "1",
+        "model": "Virtual Disk"
+      },
+      "cpu_dir": {
+        "path": "/dev/shm",
+        "device": "none",
+        "filesystem": "tmpfs",
+        "rotational": "unknown",
+        "model": ""
+      }
+    },
+    "toolchain": {
+      "rustc": "rustc 1.91.1 (ed61e7d7e 2025-11-07) (built from a source tarball)",
+      "profile": "release"
+    },
+    "protocol": {
+      "warmup_runs": 1,
+      "measured_runs": 5,
+      "quick_mode": false,
+      "spread_definition": "(max-min)/median in percent over measured runs",
+      "page_cache": "warm"
+    }
+  },
+  "all_ok": true,
+  "benchmarks": [
+    {
+      "name": "cluster/unbatched_c1",
+      "mode": "durable",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 1,
+        "writes": 1500,
+        "value_bytes": 64,
+        "node_flags": "--no-batching",
+        "sessions": false,
+        "fsync_effective": true,
+        "data_dir_fs": "/tmp"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [90.732645, 93.021349, 93.677123, 87.394360, 81.018796],
+        "median": 90.732645,
+        "min": 81.018796,
+        "max": 93.677123,
+        "spread_pct": 13.951237
+      },
+      "latency_p50_ms": {
+        "runs": [11.235790, 11.178736, 11.443485, 11.798610, 12.316652],
+        "median": 11.443485,
+        "min": 11.178736,
+        "max": 12.316652,
+        "spread_pct": 9.943789
+      },
+      "latency_p99_ms": {
+        "runs": [14.923750, 18.632844, 18.118173, 14.510975, 20.005905],
+        "median": 18.118173,
+        "min": 14.510975,
+        "max": 20.005905,
+        "spread_pct": 30.328279
+      },
+      "disk_bytes": {
+        "runs": [537045, 537045, 537045, 537045, 537045],
+        "median": 537045,
+        "min": 537045,
+        "max": 537045,
+        "spread_pct": 0
+      },
+      "verified_per_run": [1500, 1500, 1500, 1500, 1500],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/unbatched_c16",
+      "mode": "durable",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 16,
+        "writes": 4000,
+        "value_bytes": 64,
+        "node_flags": "--no-batching",
+        "sessions": false,
+        "fsync_effective": true,
+        "data_dir_fs": "/tmp"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [114.654092, 115.329224, 116.050294, 111.885152, 110.471606],
+        "median": 114.654092,
+        "min": 110.471606,
+        "max": 116.050294,
+        "spread_pct": 4.865669
+      },
+      "latency_p50_ms": {
+        "runs": [140.854371, 143.485635, 139.710354, 144.458133, 145.279163],
+        "median": 143.485635,
+        "min": 139.710354,
+        "max": 145.279163,
+        "spread_pct": 3.881092
+      },
+      "latency_p99_ms": {
+        "runs": [243.293010, 180.483004, 183.539227, 198.035328, 248.794454],
+        "median": 198.035328,
+        "min": 180.483004,
+        "max": 248.794454,
+        "spread_pct": 34.494578
+      },
+      "disk_bytes": {
+        "runs": [1427595, 1427595, 1427595, 1427595, 1427595],
+        "median": 1427595,
+        "min": 1427595,
+        "max": 1427595,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/unbatched_c64",
+      "mode": "durable",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 64,
+        "writes": 4000,
+        "value_bytes": 64,
+        "node_flags": "--no-batching",
+        "sessions": false,
+        "fsync_effective": true,
+        "data_dir_fs": "/tmp"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [119.786010, 112.107161, 118.749788, 111.679328, 112.535605],
+        "median": 112.535605,
+        "min": 111.679328,
+        "max": 119.786010,
+        "spread_pct": 7.203660
+      },
+      "latency_p50_ms": {
+        "runs": [555.359436, 576.341361, 551.123205, 573.035099, 575.626351],
+        "median": 573.035099,
+        "min": 551.123205,
+        "max": 576.341361,
+        "spread_pct": 4.400805
+      },
+      "latency_p99_ms": {
+        "runs": [682.365619, 705.358233, 794.879159, 802.075367, 841.521153],
+        "median": 794.879159,
+        "min": 682.365619,
+        "max": 841.521153,
+        "spread_pct": 20.022607
+      },
+      "disk_bytes": {
+        "runs": [1424565, 1424565, 1424565, 1424565, 1424565],
+        "median": 1424565,
+        "min": 1424565,
+        "max": 1424565,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/batched_c1",
+      "mode": "durable",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 1,
+        "writes": 1500,
+        "value_bytes": 64,
+        "node_flags": "",
+        "sessions": false,
+        "fsync_effective": true,
+        "data_dir_fs": "/tmp"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [86.645761, 89.123380, 91.357013, 83.613451, 84.454084],
+        "median": 86.645761,
+        "min": 83.613451,
+        "max": 91.357013,
+        "spread_pct": 8.937035
+      },
+      "latency_p50_ms": {
+        "runs": [11.954331, 11.778477, 11.415368, 12.156850, 11.993589],
+        "median": 11.954331,
+        "min": 11.415368,
+        "max": 12.156850,
+        "spread_pct": 6.202622
+      },
+      "latency_p99_ms": {
+        "runs": [14.869759, 14.385682, 14.461866, 14.927043, 14.676310],
+        "median": 14.676310,
+        "min": 14.385682,
+        "max": 14.927043,
+        "spread_pct": 3.688672
+      },
+      "disk_bytes": {
+        "runs": [537045, 537045, 537045, 537045, 537045],
+        "median": 537045,
+        "min": 537045,
+        "max": 537045,
+        "spread_pct": 0
+      },
+      "verified_per_run": [1500, 1500, 1500, 1500, 1500],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/batched_c16",
+      "mode": "durable",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 16,
+        "writes": 4000,
+        "value_bytes": 64,
+        "node_flags": "",
+        "sessions": false,
+        "fsync_effective": true,
+        "data_dir_fs": "/tmp"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [481.215657, 499.177868, 506.853047, 569.970226, 520.474818],
+        "median": 506.853047,
+        "min": 481.215657,
+        "max": 569.970226,
+        "spread_pct": 17.510908
+      },
+      "latency_p50_ms": {
+        "runs": [32.912116, 31.547291, 31.738121, 27.906456, 31.263880],
+        "median": 31.547291,
+        "min": 27.906456,
+        "max": 32.912116,
+        "spread_pct": 15.867163
+      },
+      "latency_p99_ms": {
+        "runs": [43.043642, 42.716266, 42.073221, 41.446595, 40.333435],
+        "median": 42.073221,
+        "min": 40.333435,
+        "max": 43.043642,
+        "spread_pct": 6.441644
+      },
+      "disk_bytes": {
+        "runs": [1427595, 1427595, 1427595, 1427595, 1427595],
+        "median": 1427595,
+        "min": 1427595,
+        "max": 1427595,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/batched_c64",
+      "mode": "durable",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 64,
+        "writes": 4000,
+        "value_bytes": 64,
+        "node_flags": "",
+        "sessions": false,
+        "fsync_effective": true,
+        "data_dir_fs": "/tmp"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [2160.235849, 1916.736384, 1958.515253, 1786.988980, 1884.139669],
+        "median": 1916.736384,
+        "min": 1786.988980,
+        "max": 2160.235849,
+        "spread_pct": 19.473041
+      },
+      "latency_p50_ms": {
+        "runs": [28.512543, 33.255586, 31.719378, 36.229075, 35.144968],
+        "median": 33.255586,
+        "min": 28.512543,
+        "max": 36.229075,
+        "spread_pct": 23.203717
+      },
+      "latency_p99_ms": {
+        "runs": [42.115791, 41.150769, 43.333998, 43.050450, 42.571964],
+        "median": 42.571964,
+        "min": 41.150769,
+        "max": 43.333998,
+        "spread_pct": 5.128326
+      },
+      "disk_bytes": {
+        "runs": [1424565, 1424565, 1424565, 1424565, 1424565],
+        "median": 1424565,
+        "min": 1424565,
+        "max": 1424565,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/batched_lsm_syncwal_c16",
+      "mode": "durable",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 16,
+        "writes": 4000,
+        "value_bytes": 64,
+        "node_flags": "--engine lsm --lsm-sync-wal",
+        "sessions": false,
+        "fsync_effective": true,
+        "data_dir_fs": "/tmp"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [524.314599, 462.528224, 432.163472, 409.466377, 483.284820],
+        "median": 462.528224,
+        "min": 409.466377,
+        "max": 524.314599,
+        "spread_pct": 24.830533
+      },
+      "latency_p50_ms": {
+        "runs": [30.479250, 34.884613, 34.929232, 37.190103, 33.483464],
+        "median": 34.884613,
+        "min": 30.479250,
+        "max": 37.190103,
+        "spread_pct": 19.237287
+      },
+      "latency_p99_ms": {
+        "runs": [48.022677, 47.117507, 63.089981, 75.766820, 44.537028],
+        "median": 48.022677,
+        "min": 44.537028,
+        "max": 75.766820,
+        "spread_pct": 65.031343
+      },
+      "disk_bytes": {
+        "runs": [2441026, 2440806, 2442686, 2441826, 2440946],
+        "median": 2441026,
+        "min": 2440806,
+        "max": 2442686,
+        "spread_pct": 0.077017
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/tmpfs_unbatched_c16",
+      "mode": "cpu_bound",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 16,
+        "writes": 4000,
+        "value_bytes": 64,
+        "node_flags": "--no-batching",
+        "sessions": false,
+        "fsync_effective": false,
+        "data_dir_fs": "/dev/shm"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [4186.733423, 7440.161437, 7422.062435, 6833.699223, 5953.915025],
+        "median": 6833.699223,
+        "min": 4186.733423,
+        "max": 7440.161437,
+        "spread_pct": 47.608592
+      },
+      "latency_p50_ms": {
+        "runs": [3.436358, 1.986500, 1.975928, 2.092086, 2.506000],
+        "median": 2.092086,
+        "min": 1.975928,
+        "max": 3.436358,
+        "spread_pct": 69.807360
+      },
+      "latency_p99_ms": {
+        "runs": [8.532314, 4.694354, 4.546117, 6.148730, 5.823743],
+        "median": 5.823743,
+        "min": 4.546117,
+        "max": 8.532314,
+        "spread_pct": 68.447337
+      },
+      "disk_bytes": {
+        "runs": [1427595, 1427595, 1427595, 1427595, 1427595],
+        "median": 1427595,
+        "min": 1427595,
+        "max": 1427595,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/tmpfs_batched_c16",
+      "mode": "cpu_bound",
+      "unit": "writes_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "nodes": 3,
+        "concurrency": 16,
+        "writes": 4000,
+        "value_bytes": 64,
+        "node_flags": "",
+        "sessions": false,
+        "fsync_effective": false,
+        "data_dir_fs": "/dev/shm"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [11106.100409, 11176.784968, 12763.589787, 15255.507438, 13396.362729],
+        "median": 12763.589787,
+        "min": 11106.100409,
+        "max": 15255.507438,
+        "spread_pct": 32.509718
+      },
+      "latency_p50_ms": {
+        "runs": [1.293622, 1.323038, 1.133718, 1.010478, 1.026696],
+        "median": 1.133718,
+        "min": 1.010478,
+        "max": 1.323038,
+        "spread_pct": 27.569466
+      },
+      "latency_p99_ms": {
+        "runs": [2.992722, 2.834467, 3.027455, 1.868319, 3.821037],
+        "median": 2.992722,
+        "min": 1.868319,
+        "max": 3.821037,
+        "spread_pct": 65.248894
+      },
+      "disk_bytes": {
+        "runs": [1427595, 1427595, 1427595, 1427595, 1427595],
+        "median": 1427595,
+        "min": 1427595,
+        "max": 1427595,
+        "spread_pct": 0
+      },
+      "verified_per_run": [4000, 4000, 4000, 4000, 4000],
+      "details": [
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        },
+        {
+          "overloaded_retries": 0
+        }
+      ]
+    },
+    {
+      "name": "cluster/recovery_after_kill9_n1000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "nodes": 3,
+        "writes": 1000,
+        "value_bytes": 64,
+        "compaction_threshold": 100000,
+        "measures": "SIGKILL all 3 nodes, restart, time until a linearizable read succeeds; then every key is read back"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [712.999497, 645.680466, 627.462144, 627.267339, 646.549547],
+        "median": 645.680466,
+        "min": 627.267339,
+        "max": 712.999497,
+        "spread_pct": 13.277800
+      },
+      "disk_bytes": {
+        "runs": [354975, 354975, 354975, 354975, 354975],
+        "median": 354975,
+        "min": 354975,
+        "max": 354975,
+        "spread_pct": 0
+      },
+      "verified_per_run": [1000, 1000, 1000, 1000, 1000]
+    },
+    {
+      "name": "cluster/recovery_after_kill9_n10000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "nodes": 3,
+        "writes": 10000,
+        "value_bytes": 64,
+        "compaction_threshold": 100000,
+        "measures": "SIGKILL all 3 nodes, restart, time until a linearizable read succeeds; then every key is read back"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [735.330425, 781.656298, 696.236637, 683.751000, 636.932835],
+        "median": 696.236637,
+        "min": 636.932835,
+        "max": 781.656298,
+        "spread_pct": 20.786534
+      },
+      "disk_bytes": {
+        "runs": [3574545, 3574545, 3574545, 3574545, 3574545],
+        "median": 3574545,
+        "min": 3574545,
+        "max": 3574545,
+        "spread_pct": 0
+      },
+      "verified_per_run": [10000, 10000, 10000, 10000, 10000]
+    },
+    {
+      "name": "cluster/recovery_after_kill9_n40000",
+      "mode": "durable",
+      "unit": "recovery_ms",
+      "higher_is_better": false,
+      "params": {
+        "nodes": 3,
+        "writes": 40000,
+        "value_bytes": 64,
+        "compaction_threshold": 100000,
+        "measures": "SIGKILL all 3 nodes, restart, time until a linearizable read succeeds; then every key is read back"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [658.130520, 642.490260, 623.350012, 779.141653, 573.085084],
+        "median": 642.490260,
+        "min": 573.085084,
+        "max": 779.141653,
+        "spread_pct": 32.071548
+      },
+      "disk_bytes": {
+        "runs": [14360385, 14360505, 14360505, 14360505, 14360505],
+        "median": 14360505,
+        "min": 14360385,
+        "max": 14360505,
+        "spread_pct": 0.000836
+      },
+      "verified_per_run": [40000, 40000, 40000, 40000, 40000]
+    }
+  ]
+}

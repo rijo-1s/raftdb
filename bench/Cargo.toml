@@ -1,0 +1,20 @@
+[package]
+name = "raftdb-bench"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Reproducible benchmark harness. Deliberately depends only on crates that are
+# already in the workspace lockfile and touches no engine source.
+[[bin]]
+name = "harness"
+path = "src/main.rs"
+
+[dependencies]
+raft-core = { path = "../crates/raft-core" }
+storage = { path = "../crates/storage" }
+kv = { path = "../crates/kv" }
+raftdb-proto = { path = "../crates/raftdb-proto" }
+tokio = { version = "1", features = ["full"] }
+tonic = "0.11"
+tempfile = "=3.8.1"

@@ -1,0 +1,164 @@
+syntax = "proto3";
+package raftdb;
+
+// ---- Node-to-node consensus RPCs (Raft paper Figure 2, §7) ----
+// Field names/shapes mirror raft_core::Message exactly, so the mapping in
+// the binary crate's `convert.rs` is close to mechanical. The sender's
+// NodeId already travels inside candidate_id/leader_id per Raft semantics,
+// so no separate "from" field is needed. Replies don't carry it either, since
+// the gRPC client already knows which peer it dialed.
+
+service RaftTransport {
+  rpc RequestVote(RequestVoteRequest) returns (RequestVoteReply);
+  rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesReply);
+  rpc InstallSnapshot(InstallSnapshotRequest) returns (InstallSnapshotReply);
+}
+
+message LogEntry {
+  uint64 term = 1;
+  uint64 index = 2;
+  bytes data = 3;
+  // 0 = Data, 1 = AddNode, 2 = RemoveNode; mirrors raft_core::EntryKind.
+  // kind_node_id is only meaningful for tags 1/2.
+  uint32 kind_tag = 4;
+  uint64 kind_node_id = 5;
+}
+
+message RequestVoteRequest {
+  uint64 term = 1;
+  uint64 candidate_id = 2;
+  uint64 last_log_index = 3;
+  uint64 last_log_term = 4;
+  // true = a pre-vote ("would you vote for me?"): no term or vote changes.
+  // Older nodes ignore the field and treat it as a real vote request.
+  bool pre_vote = 5;
+}
+
+message RequestVoteReply {
+  uint64 term = 1;
+  bool vote_granted = 2;
+  // true = answers a pre-vote.
+  bool pre_vote = 3;
+}
+
+message AppendEntriesRequest {
+  uint64 term = 1;
+  uint64 leader_id = 2;
+  uint64 prev_log_index = 3;
+  uint64 prev_log_term = 4;
+  repeated LogEntry entries = 5;
+  uint64 leader_commit = 6;
+  // ReadIndex context; 0 = none. Added after v1: old peers send/ignore 0,
+  // which makes them unable to confirm reads (fails closed).
+  uint64 read_ctx = 7;
+}
+
+message AppendEntriesReply {
+  uint64 term = 1;
+  bool success = 2;
+  uint64 match_index = 3;
+  // Echo of AppendEntriesRequest.read_ctx.
+  uint64 read_ctx = 4;
+}
+
+message InstallSnapshotRequest {
+  uint64 term = 1;
+  uint64 leader_id = 2;
+  uint64 last_included_index = 3;
+  uint64 last_included_term = 4;
+  bytes data = 5;
+  // Full cluster membership as of this snapshot boundary, including the
+  // sender's own ID. See raft_core::Message::InstallSnapshot's doc.
+  repeated uint64 peers = 6;
+}
+
+message InstallSnapshotReply {
+  uint64 term = 1;
+}
+
+// ---- Client-facing API (what the `raftdb put/get/delete` CLI calls) ----
+// Every RPC here can fail with "not the leader"; `leader_hint` carries the
+// NodeId of whoever this node currently believes is leader (if any), so
+// the CLI can redirect there instead of guessing.
+
+service ClientApi {
+  rpc Put(PutRequest) returns (PutReply);
+  rpc Get(GetRequest) returns (GetReply);
+  rpc Delete(DeleteRequest) returns (DeleteReply);
+  rpc AddNode(AddNodeRequest) returns (AddNodeReply);
+  rpc RemoveNode(RemoveNodeRequest) returns (RemoveNodeReply);
+  // Point-in-time export of this node's state machine (see docs/backup-restore.md).
+  rpc Backup(BackupRequest) returns (BackupReply);
+}
+
+message BackupRequest {}
+
+message BackupReply {
+  bool ok = 1;
+  string error = 2;
+  // A complete, checksummed backup file (kv::backup::Backup::encode).
+  bytes data = 3;
+  // The applied log index the export is as-of.
+  uint64 last_applied = 4;
+}
+
+message AddNodeRequest {
+  uint64 node_id = 1;
+}
+
+message AddNodeReply {
+  bool ok = 1;
+  string error = 2;
+  optional uint64 leader_hint = 3;
+}
+
+message RemoveNodeRequest {
+  uint64 node_id = 1;
+}
+
+message RemoveNodeReply {
+  bool ok = 1;
+  string error = 2;
+  optional uint64 leader_hint = 3;
+}
+
+message PutRequest {
+  string key = 1;
+  string value = 2;
+  // Optional exactly-once session (see crates/kv/src/session.rs). Both zero
+  // means "no session" (the write is applied every time it is received). When
+  // set, a retry with the same (client_id, seq) is acknowledged with the
+  // original result and NOT applied again. One client_id = one sequential
+  // stream with increasing seq.
+  uint64 client_id = 3;
+  uint64 seq = 4;
+}
+
+message PutReply {
+  bool ok = 1;
+  string error = 2;
+  optional uint64 leader_hint = 3;
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetReply {
+  bool found = 1;
+  string value = 2;
+  string error = 3;
+  optional uint64 leader_hint = 4;
+}
+
+message DeleteRequest {
+  string key = 1;
+  uint64 client_id = 2; // as in PutRequest
+  uint64 seq = 3;
+}
+
+message DeleteReply {
+  bool ok = 1;
+  string error = 2;
+  optional uint64 leader_hint = 3;
+}

@@ -1,0 +1,294 @@
+{
+  "meta": {
+    "suite": "engine_cpu_bound",
+    "timestamp_unix": 1793975411,
+    "command": "target/release/harness all",
+    "env": {
+    },
+    "git": {
+      "commit": "",
+      "dirty": false
+    },
+    "machine": {
+      "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+      "cpus": 16,
+      "mem_total": "3848392 kB",
+      "kernel": "6.6.87.2-microsoft-standard-WSL2",
+      "os": "Linux x86_64"
+    },
+    "disk": {
+      "durable_dir": {
+        "path": "/tmp",
+        "device": "/dev/sdd",
+        "filesystem": "ext4",
+        "rotational": "1",
+        "model": "Virtual Disk"
+      },
+      "cpu_dir": {
+        "path": "/dev/shm",
+        "device": "none",
+        "filesystem": "tmpfs",
+        "rotational": "unknown",
+        "model": ""
+      }
+    },
+    "toolchain": {
+      "rustc": "rustc 1.91.1 (ed61e7d7e 2025-11-07) (built from a source tarball)",
+      "profile": "release"
+    },
+    "protocol": {
+      "warmup_runs": 1,
+      "measured_runs": 5,
+      "quick_mode": false,
+      "spread_definition": "(max-min)/median in percent over measured runs",
+      "page_cache": "warm"
+    }
+  },
+  "all_ok": true,
+  "benchmarks": [
+    {
+      "name": "cpu/kvstore_apply_b1",
+      "mode": "cpu_bound",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "keys": 100000,
+        "batch": 1,
+        "engine": "KvStore (memory)"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [853499.943806, 883977.681756, 1169591.368285, 968940.571232, 1014765.291638],
+        "median": 968940.571232,
+        "min": 853499.943806,
+        "max": 1169591.368285,
+        "spread_pct": 32.622375
+      },
+      "latency_p50_ms": {
+        "runs": [0.000147, 0.000170, 0.000131, 0.000147, 0.000142],
+        "median": 0.000147,
+        "min": 0.000131,
+        "max": 0.000170,
+        "spread_pct": 26.530612
+      },
+      "latency_p99_ms": {
+        "runs": [0.000496, 0.000695, 0.000445, 0.000582, 0.000585],
+        "median": 0.000582,
+        "min": 0.000445,
+        "max": 0.000695,
+        "spread_pct": 42.955326
+      },
+      "verified_per_run": [100000, 100000, 100000, 100000, 100000]
+    },
+    {
+      "name": "cpu/kvstore_apply_b64",
+      "mode": "cpu_bound",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "keys": 100000,
+        "batch": 64,
+        "engine": "KvStore (memory)"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [1302385.747982, 1259570.896692, 1338044.266064, 1321965.050813, 1285738.251875],
+        "median": 1302385.747982,
+        "min": 1259570.896692,
+        "max": 1338044.266064,
+        "spread_pct": 6.025355
+      },
+      "latency_p50_ms": {
+        "runs": [0.007532, 0.007701, 0.006935, 0.007007, 0.007646],
+        "median": 0.007532,
+        "min": 0.006935,
+        "max": 0.007701,
+        "spread_pct": 10.169942
+      },
+      "latency_p99_ms": {
+        "runs": [0.021301, 0.037957, 0.017837, 0.028540, 0.039244],
+        "median": 0.028540,
+        "min": 0.017837,
+        "max": 0.039244,
+        "spread_pct": 75.007008
+      },
+      "verified_per_run": [100000, 100000, 100000, 100000, 100000]
+    },
+    {
+      "name": "cpu/lsm_nosync_apply_b64",
+      "mode": "cpu_bound",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "keys": 100000,
+        "batch": 64,
+        "engine": "LsmStore sync_wal=false (page cache, not durable)"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [665829.439413, 657216.994788, 660506.030050, 659608.986827, 654037.665885],
+        "median": 659608.986827,
+        "min": 654037.665885,
+        "max": 665829.439413,
+        "spread_pct": 1.787691
+      },
+      "latency_p50_ms": {
+        "runs": [0.046791, 0.046979, 0.046663, 0.046636, 0.046966],
+        "median": 0.046791,
+        "min": 0.046636,
+        "max": 0.046979,
+        "spread_pct": 0.733047
+      },
+      "latency_p99_ms": {
+        "runs": [0.120485, 0.124320, 0.127584, 0.125761, 0.118159],
+        "median": 0.124320,
+        "min": 0.118159,
+        "max": 0.127584,
+        "spread_pct": 7.581242
+      },
+      "disk_bytes": {
+        "runs": [12412590, 12412590, 12412590, 12412590, 12412590],
+        "median": 12412590,
+        "min": 12412590,
+        "max": 12412590,
+        "spread_pct": 0
+      },
+      "verified_per_run": [100000, 100000, 100000, 100000, 100000]
+    },
+    {
+      "name": "cpu/lsm_nosync_apply_b64_sessions",
+      "mode": "cpu_bound",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "keys": 100000,
+        "batch": 64,
+        "clients": 1000,
+        "engine": "LsmStore sync_wal=false, every write wrapped in a session"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [424281.402332, 410595.753539, 423799.200142, 431716.896913, 415100.644140],
+        "median": 423799.200142,
+        "min": 410595.753539,
+        "max": 431716.896913,
+        "spread_pct": 4.983762
+      },
+      "latency_p50_ms": {
+        "runs": [0.092063, 0.092645, 0.092401, 0.091953, 0.093578],
+        "median": 0.092401,
+        "min": 0.091953,
+        "max": 0.093578,
+        "spread_pct": 1.758639
+      },
+      "latency_p99_ms": {
+        "runs": [0.283386, 0.241244, 0.260378, 0.238070, 0.273543],
+        "median": 0.260378,
+        "min": 0.238070,
+        "max": 0.283386,
+        "spread_pct": 17.403928
+      },
+      "disk_bytes": {
+        "runs": [13702376, 13702376, 13702376, 13702376, 13702376],
+        "median": 13702376,
+        "min": 13702376,
+        "max": 13702376,
+        "spread_pct": 0
+      },
+      "verified_per_run": [100000, 100000, 100000, 100000, 100000]
+    },
+    {
+      "name": "cpu/lsm_point_read",
+      "mode": "cpu_bound",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "keys": 100000,
+        "reads": 100000,
+        "cache_mib": 8
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [174646.008477, 176549.920631, 173553.243759, 172561.135619, 168346.884736],
+        "median": 173553.243759,
+        "min": 168346.884736,
+        "max": 176549.920631,
+        "spread_pct": 4.726524
+      },
+      "latency_p50_ms": {
+        "runs": [0.001253, 0.001253, 0.001333, 0.001289, 0.001325],
+        "median": 0.001289,
+        "min": 0.001253,
+        "max": 0.001333,
+        "spread_pct": 6.206362
+      },
+      "latency_p99_ms": {
+        "runs": [0.015744, 0.015504, 0.015598, 0.016145, 0.018613],
+        "median": 0.015744,
+        "min": 0.015504,
+        "max": 0.018613,
+        "spread_pct": 19.747205
+      },
+      "disk_bytes": {
+        "runs": [12425959, 12425959, 12425959, 12425959, 12425959],
+        "median": 12425959,
+        "min": 12425959,
+        "max": 12425959,
+        "spread_pct": 0
+      },
+      "verified_per_run": [100000, 100000, 100000, 100000, 100000]
+    },
+    {
+      "name": "cpu/raft_single_node_memlog",
+      "mode": "cpu_bound",
+      "unit": "ops_per_sec",
+      "higher_is_better": true,
+      "params": {
+        "writes": 3000,
+        "log": "MemLog",
+        "engine": "KvStore"
+      },
+      "warmup_runs": 1,
+      "runs": 5,
+      "ok": true,
+      "errors": [],
+      "primary": {
+        "runs": [945074.774316, 909099.724603, 905513.854966, 935399.443624, 796685.363987],
+        "median": 909099.724603,
+        "min": 796685.363987,
+        "max": 945074.774316,
+        "spread_pct": 16.322677
+      },
+      "latency_p50_ms": {
+        "runs": [0.000972, 0.000966, 0.000995, 0.000975, 0.000981],
+        "median": 0.000975,
+        "min": 0.000966,
+        "max": 0.000995,
+        "spread_pct": 2.974359
+      },
+      "latency_p99_ms": {
+        "runs": [0.001259, 0.001494, 0.001484, 0.001409, 0.001534],
+        "median": 0.001484,
+        "min": 0.001259,
+        "max": 0.001534,
+        "spread_pct": 18.530997
+      },
+      "verified_per_run": [3000, 3000, 3000, 3000, 3000]
+    }
+  ]
+}
